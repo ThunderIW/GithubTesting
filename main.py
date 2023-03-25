@@ -1,16 +1,29 @@
-# This is a sample Python script.
+from dearpygui import  core, simple
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+def myfunction(sender,data):
+    print("Sender : ", sender)
+    print("Data :", data)
+def myfunction2(sender,data):
+    userName=core.get_value("username")
+    password=core.get_value("password")
+    print(f"username : {userName}")
+    print(f"Password : {password}")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+##simple.show_style_editor()
+core.set_theme("Light")
+##simple.show_documentation()
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+
+with simple.window("TEST"):
+    core.add_button("Click here",callback=myfunction,callback_data="Working....1")
+    core.add_button("Button",callback=myfunction,callback_data="Working....2")
+    core.set_main_window_size(500,500)
+
+with simple.window("TEST Win 2",autosize=True,x_pos=150,y_pos=200):
+    core.add_input_text(name="username",hint="Enter username",on_enter=True, callback=myfunction2)
+    core.add_input_text(name="password",hint="Enter password",password=True, on_enter=True, callback=myfunction2)
+    core.add_button("Send",callback=myfunction2)
+core.start_dearpygui()
